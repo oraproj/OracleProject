@@ -1,0 +1,109 @@
+{% load i18n %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Oracle script project</title>
+    <link rel="shortcut icon" href="../assets/images/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="../assets/css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
+    <link href="../assets/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Oracle Script Project</a>
+          <div class="nav-collapse collapse">
+   	    {% if user.is_active %}
+
+        <ul class="nav">
+            <li><a href="/admin">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li class="dropdown">
+            {% if user.is_staff %}
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin options<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="/basic_configuration/">Basic configuration</a></li>
+            </ul>
+	    {% endif %}
+            </li>
+        </ul>
+
+            <div class="navbar-form pull-right">
+	        {{ user }}
+                <input type="button" onClick='location.href="/logout/"' class="btn" value="Logout">
+	    {% else %}
+            <div class="navbar-form pull-right">
+                <input type="button" onClick='location.href="/login/"' class="btn" value="Login">
+	    {% endif %}
+            </div>
+          </div><!--/.nav-collapse -->
+        </div>
+	<body background="../assets/images/Verduras-frescas.jpg" style="width:100%; position:absolute">
+      </div>
+    </div>
+
+    <div class="container">
+
+      <!-- Main hero unit for a primary marketing message or call to action -->
+      <div class="hero-unit">
+        <h1>Oracle Script Project</h1>
+        <p>Scripts can be written and executed "on-the-fly", without explicit compile and link steps; they are typically created or modified by the person executing them.[1] A scripting language is usually interpreted from source code or bytecode.[2] By contrast, the software environment the scripts are written for is typically written in a compiled language and distributed in machine code form; the user may not have access to its source code, let alone be able to modify it.</p>
+        <center>
+            <img src="../assets/images/index_image.png">
+        </center>
+      </div>
+
+      <footer>
+      <center> <p>&copy; Company 2012</p> </center>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../assets/js/jquery.js"></script>
+    <script src="../assets/js/bootstrap-transition.js"></script>
+    <script src="../assets/js/bootstrap-alert.js"></script>
+    <script src="../assets/js/bootstrap-modal.js"></script>
+    <script src="../assets/js/bootstrap-dropdown.js"></script>
+    <script src="../assets/js/bootstrap-scrollspy.js"></script>
+    <script src="../assets/js/bootstrap-tab.js"></script>
+    <script src="../assets/js/bootstrap-tooltip.js"></script>
+    <script src="../assets/js/bootstrap-popover.js"></script>
+    <script src="../assets/js/bootstrap-button.js"></script>
+    <script src="../assets/js/bootstrap-collapse.js"></script>
+    <script src="../assets/js/bootstrap-carousel.js"></script>
+    <script src="../assets/js/bootstrap-typeahead.js"></script>
+
+  </body>
+</html>
+{% endblock content %}
