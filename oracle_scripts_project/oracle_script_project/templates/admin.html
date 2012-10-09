@@ -81,12 +81,12 @@
         <div class="span4">
             <h2>View charts</h2>
             <p> You could create some charts to get a better visualization of your research</p>
-            <img src="../assets/images/piechart.png">
+            <div id="chart_div"></div>
             <p><a class="btn" href="#">View details &raquo;</a></p>
         </div>
         <div class="span4">
           <h2>Create new research</h2>
-          <p>The admin could create some new research, every research must have: Title, a small description, begin date, end date and a status ( available / ended / open for the public ). Admin could also add other questions, when the research is open.<p>
+            <div id="chart_div_bar"></div>
           <p><a class="btn" href="#">View details &raquo;</a></p>
        </div>
         <div class="span4">
@@ -95,6 +95,7 @@
             View the answers using text-type;
             Add a set of possible answers for each question;
             Remove the research from the list of published research;
+            <div id="chart_div_area"></div>
           </P>
           <p><a class="btn" href="#">View details &raquo;</a></p>
         </div>
@@ -128,3 +129,45 @@
   </body>
 </html>
 {% endblock content %}
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+ <script type="text/javascript">
+
+   // Load the Visualization API and the piechart package.
+   google.load('visualization', '1.0', {'packages':['corechart']});
+
+  // Set a callback to run when the Google Visualization API is loaded.
+  google.setOnLoadCallback(drawChart);
+
+  // Callback that creates and populates a data table,
+  // instantiates the pie chart, passes in the data and
+  // draws it.
+  function drawChart() {
+
+    // Create the data table.
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Topping');
+    data.addColumn('number', 'Slices');
+    data.addRows([
+      ['Mushrooms', 3],
+      ['Onions', 1],
+      ['Olives', 1],
+      ['Zucchini', 1],
+      ['Pepperoni', 2]
+    ]);
+
+    // Set chart options
+    var options = {'title':'How Much Pizza I Ate Last Night',
+                   'width':400,
+                   'height':300};
+
+    // Instantiate and draw our chart, passing in some options.
+    var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+    var chartbar = new google.visualization.BarChart(document.getElementById('chart_div_bar'));
+    var chartarea = new google.visualization.AreaChart(document.getElementById('chart_div_area'));
+    chart.draw(data, options);
+    chartbar.draw(data, options);
+    chartarea.draw(data, options);
+  }
+</script>
+
