@@ -1,6 +1,6 @@
 # Create your views here.
 from scripts.forms import loginForm
-from scripts.forms import signupForm
+from scripts.forms import basicForm
 
 from django import forms
 from django.http import HttpResponse
@@ -61,26 +61,6 @@ def loginPage(request, cookie):
             "frm": frm,
         }, context_instance=RequestContext(request))
 
-def signup(request, cookie):
-    if request.POST:
-        frm = signupForm(request.POST)
-        frm_dict = request.POST
-
-        username = frm_dict['username']
-        password = frm_dict['passwd']
-        email = frm_dict['email']
-        user = User.objects.create_user(username, email, password)
-        user.save()
-
-        return HttpResponseRedirect('/')
-
-    else:
-        frm = signupForm()
-
-        return render("signup.html", {
-            "frm": frm,
-        }, context_instance=RequestContext(request))
-
 @user_passes_test(lambda u: u.is_staff, login_url='/login/')
 def admin(request, cookie):
     if request.POST:
@@ -98,12 +78,27 @@ def admin(request, cookie):
 #@login_required(login_url='/login/')
 #@user_passes_test(lambda u: u.is_staff, login_url='/login/')
 
-@login_required(login_url='/login/')
-def userhome(request, cookie):
-    return render("home.html", {
-        "user": request.user,
-    },context_instance=RequestContext(request))
-
 def logoff(request, cookie):
     logout(request)
     return render("logout.html")
+
+@login_required(login_url='/login/')
+@user_passes_test(lambda u: u.is_staff, login_url='/login/')
+def basic_conf(request):
+    if request.POST:
+        frm = basicForm(request.POST)
+        frm_dict = request.POST
+	print __build_str_conn(frm_dict) 
+
+    else:
+	frm = basicForm()
+
+    return render("basic_conf.html", {
+	"frm": frm,
+    }, context_instance=RequestContext(request))
+
+def __build_str_conn(form_dict):
+	return("user id="+form_dict['username']+";password="+form_dict['passwd']+";data source=" + 
+     	       "(DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)" + 
+     	       "(HOST="+form_dict['host']+")(PORT="+form_dict['port']+"))(CONNECT_DATA="+
+               "(SERVICE_NAME="+form_dict['sid']+")))")
