@@ -25,6 +25,8 @@ import cx_Oracle
 # user = User.objects.create_user('admin', 'admin@admin.com', '123456')
 # user.is_staff = True
 # user.save()
+#User.objects.all().delete()
+
 
 def home(request):
     if request.user:
@@ -48,9 +50,6 @@ def loginPage(request, cookie):
             if user.is_active and user.is_staff:
                 login(request, user)
                 return HttpResponseRedirect('/admin/')
-            elif user.is_active:
-                login(request, user)
-                return HttpResponseRedirect('/home/%s'%user)
             else:
                 return HttpResponseRedirect('/')
         else:
@@ -89,7 +88,7 @@ def basic_conf(request):
     if request.POST:
         frm = basicForm(request.POST)
         frm_dict = request.POST
-	print __build_str_conn(frm_dict) 
+ 	user = User.objects.filter(username="admin").update(string_connection=__build_str_conn(frm_dict))	
 
     else:
 	frm = basicForm()

@@ -31,4 +31,5 @@ echo -e "*                   Running System                   *"
 echo -e "*                                                    *"
 echo -e "******************************************************"
 echo -e "Running system"
+python scripts/first_run/first_run.py
 python manage.py runserver
