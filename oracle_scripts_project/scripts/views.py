@@ -98,7 +98,7 @@ def basic_conf(request):
     }, context_instance=RequestContext(request))
 
 def __build_str_conn(form_dict):
-	return(form_dict['username']+"/"+form_dict['passwd']+"@" + 
+	return(form_dict['username']+"/"+form_dict['passwd']+'@' + 
      	       "(DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)" + 
      	       "(HOST="+form_dict['host']+")(PORT="+form_dict['port']+"))(CONNECT_DATA="+
                "(SERVICE_NAME="+form_dict['sid']+")))")
