@@ -40,6 +40,11 @@ def home(request):
 
 def loginPage(request, cookie):
     if request.POST:
+	user1 = User.objects.get(username="admin")
+	first_login = False
+	if (user1.last_login == user1.date_joined):
+	    first_login = True        
+
         frm = loginForm(request.POST)
         frm_dict = request.POST
         user_email = frm_dict['username']
@@ -49,7 +54,10 @@ def loginPage(request, cookie):
         if user is not None:
             if user.is_active and user.is_staff:
                 login(request, user)
-                return HttpResponseRedirect('/admin/')
+		if first_login:
+                    return HttpResponseRedirect('/first_configuration/')
+		else:                    
+                    return HttpResponseRedirect('/admin/')
             else:
                 return HttpResponseRedirect('/')
         else:
@@ -70,13 +78,16 @@ def admin(request, cookie):
     else:
         frm = loginForm()
 
+    list_test = [21,43,50,89,45,23]
+    list_name = ["db1","db2","db3","db4","db5","db6"]
+
     return render("admin.html", {
+	"lst_val": list_test,
+	"lst_nm": list_name,
         "frm": frm,
         "user": request.user,
     }, context_instance=RequestContext(request))
 
-#@login_required(login_url='/login/')
-#@user_passes_test(lambda u: u.is_staff, login_url='/login/')
 
 def logoff(request, cookie):
     logout(request)
@@ -94,6 +105,21 @@ def basic_conf(request):
 	frm = basicForm()
 
     return render("basic_conf.html", {
+	"frm": frm,
+    }, context_instance=RequestContext(request))
+
+@login_required(login_url='/login/')
+@user_passes_test(lambda u: u.is_staff, login_url='/login/')
+def first_conf(request):
+    if request.POST:
+        frm = basicForm(request.POST)
+        frm_dict = request.POST
+ 	user = User.objects.filter(username="admin").update(string_connection=__build_str_conn(frm_dict))	
+
+    else:
+	frm = basicForm()
+
+    return render("first_conf.html", {
 	"frm": frm,
     }, context_instance=RequestContext(request))
 

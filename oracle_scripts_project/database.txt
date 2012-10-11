@@ -4,3 +4,4 @@ from django.contrib.auth.models import User
 user = User.objects.create_user('admin', 'admin@admin.com', '123456')
 user.is_staff = True
 user.save()
+

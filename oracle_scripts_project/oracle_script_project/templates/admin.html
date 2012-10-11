@@ -148,15 +148,16 @@
     data.addColumn('string', 'Topping');
     data.addColumn('number', 'Slices');
     data.addRows([
-      ['Mushrooms', 3],
-      ['Onions', 1],
-      ['Olives', 1],
-      ['Zucchini', 1],
-      ['Pepperoni', 2]
+      ["{{ lst_nm.0 }}", {{ lst_val.0 }}],
+      ["{{ lst_nm.1 }}", {{ lst_val.1 }}],
+      ["{{ lst_nm.2 }}", {{ lst_val.2 }}],
+      ["{{ lst_nm.3 }}", {{ lst_val.3 }}],
+      ["{{ lst_nm.4 }}", {{ lst_val.4 }}],
+      ["{{ lst_nm.5 }}", {{ lst_val.5 }}],
     ]);
 
     // Set chart options
-    var options = {'title':'How Much Pizza I Ate Last Night',
+    var options = {'title':'Databases',
                    'width':400,
                    'height':300};
 
