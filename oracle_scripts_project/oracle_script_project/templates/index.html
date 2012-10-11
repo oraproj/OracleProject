@@ -44,11 +44,7 @@
    	    {% if user.is_active %}
 
         <ul class="nav">
-            {% if user.is_staff %}
-            <li class="active"><a href="/admin">Home</a></li>
-            {% else %}
-            <li class="active"><a href="/home/{{user}}">Home</a></li>
-            {% endif %}
+            <li><a href="/admin">Home</a></li>
             <li><a href="#about">About</a></li>
             <li class="dropdown">
             {% if user.is_staff %}
