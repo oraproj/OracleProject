@@ -43,7 +43,7 @@ def loginPage(request, cookie):
 	user1 = User.objects.get(username="admin")
 	first_login = False
 	if (user1.last_login == user1.date_joined):
-	    first_login = True        
+	    first_login = True
 
         frm = loginForm(request.POST)
         frm_dict = request.POST
@@ -56,7 +56,7 @@ def loginPage(request, cookie):
                 login(request, user)
 		if first_login:
                     return HttpResponseRedirect('/first_configuration/')
-		else:                    
+		else:
                     return HttpResponseRedirect('/admin/')
             else:
                 return HttpResponseRedirect('/')
@@ -124,7 +124,7 @@ def first_conf(request):
     }, context_instance=RequestContext(request))
 
 def __build_str_conn(form_dict):
-	return(form_dict['username']+"/"+form_dict['passwd']+'@' + 
-     	       "(DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)" + 
+	return(form_dict['username']+"/"+form_dict['passwd']+'@' +
+     	       "(DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)" +
      	       "(HOST="+form_dict['host']+")(PORT="+form_dict['port']+"))(CONNECT_DATA="+
                "(SERVICE_NAME="+form_dict['sid']+")))")
